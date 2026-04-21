@@ -76,29 +76,23 @@ a { color: inherit; text-decoration: none; }
   list-style: none;
   margin-top: 2.4rem;
 }
-.nav-secondary li + li { margin-top: 0.5rem; }
+.nav-secondary li + li { margin-top: 0.55rem; }
 .nav-secondary a {
   font-size: 0.73rem;
   letter-spacing: 0.06em;
   color: var(--text);
   transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
 }
 .nav-secondary a:hover,
 .nav-secondary a.active { opacity: 0.4; }
 
-.nav-instagram {
-  margin-top: 2.4rem;
-}
-.nav-instagram a {
-  display: inline-flex;
-  opacity: 0.45;
-  transition: opacity 0.2s;
-}
-.nav-instagram a:hover { opacity: 1; }
-.nav-instagram svg {
-  width: 16px;
-  height: 16px;
-  fill: var(--text);
+/* instagram icon inherits font-size of its list item */
+.ig-link svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
 }
 
 /* ── Main content area ───────────────────────── */
@@ -109,64 +103,89 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
 }
 
-/* ── Hamburger (mobile) ──────────────────────── */
-.menu-toggle {
+/* ── Mobile header bar ───────────────────────── */
+.mobile-header {
   display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 48px;
+  background: var(--bg);
+  z-index: 200;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.6rem 0 1.2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-artist-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ── Hamburger toggle ────────────────────────── */
+.menu-toggle {
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 200;
 }
 .menu-toggle span {
   display: block;
-  width: 22px;
+  width: 20px;
   height: 1px;
   background: var(--text);
   margin: 5px 0;
   transition: transform 0.3s, opacity 0.3s;
 }
-.menu-toggle.is-open span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-.menu-toggle.is-open span:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle.is-open span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
+.menu-toggle.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-toggle.is-open span:nth-child(2) { opacity: 0; }
+.menu-toggle.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* ── Mobile overlay nav ──────────────────────── */
 .mobile-nav {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 48px; left: 0; right: 0; bottom: 0;
   background: var(--bg);
-  z-index: 100;
+  z-index: 190;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.4rem;
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
-.mobile-nav .close-btn { display: none; }
+.mobile-nav a:hover { opacity: 0.4; }
+.mobile-nav .ig-link svg {
+  width: 1em;
+  height: 1em;
+}
 
 /* ── Responsive ──────────────────────────────── */
 @media (max-width: 760px) {
+  .mobile-header { display: flex; }
+
   .site-wrap {
     grid-template-columns: 1fr;
   }
   .nav-left { display: none; }
-  .menu-toggle { display: block; }
+
   .site-main {
     grid-column: 1;
-    padding: 2rem 1rem 4rem;
+    padding: 1.5rem 1rem 4rem;
+    padding-top: calc(48px + 1.5rem);
+    align-items: flex-start;
   }
 }
