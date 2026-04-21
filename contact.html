@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Çağla Öztürk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-wrap {
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .contact-wrap h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+
+    .contact-item {
+      margin-bottom: 1.4rem;
+    }
+
+    .contact-item .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-item a, .contact-item p {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .contact-item a {
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .contact-item a:hover {
+      border-color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+  <span></span><span></span><span></span>
+</button>
+<nav id="mobileNav" class="mobile-nav">
+  <a href="paintings.html">Paintings</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="site-wrap">
+
+  <nav class="nav-left">
+    <div class="artist-name"><a href="index.html">Çağla Öztürk</a></div>
+    <div class="nav-label-paintings">paintings</div>
+
+    <ul class="nav-periods">
+      <li><a href="paintings.html">2024 – 2025</a></li>
+      <li><a href="paintings.html">2022 – 2023</a></li>
+    </ul>
+
+    <ul class="nav-secondary">
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html" class="active">contact</a></li>
+    </ul>
+
+    <div class="nav-instagram">
+      <a href="https://www.instagram.com/caglaozturkk3/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <main class="site-main">
+    <div class="contact-wrap">
+      <h2>Contact</h2>
+
+      <div class="contact-item">
+        <p class="label">Email</p>
+        <a href="mailto:cagla.ozturk@std.yeditepe.edu.tr">cagla.ozturk@std.yeditepe.edu.tr</a>
+      </div>
+
+      <div class="contact-item">
+        <p class="label">Instagram</p>
+        <a href="https://www.instagram.com/caglaozturkk3/" target="_blank" rel="noopener">@caglaozturkk3</a>
+      </div>
+
+      <div class="contact-item">
+        <p class="label">Location</p>
+        <p>Istanbul, Turkey</p>
+      </div>
+
+      <div class="contact-item" style="margin-top: 2.5rem;">
+        <p class="label">Inquiries</p>
+        <p style="font-size: 0.78rem; line-height: 1.8; color: #555;">
+          For inquiries about available works, exhibitions, or collaborations,<br>
+          please get in touch by email.
+        </p>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav  = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('is-open', open);
+  });
+</script>
+</body>
+</html>

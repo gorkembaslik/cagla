@@ -1,0 +1,172 @@
+/* ── Reset ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ──────────────────────────────────── */
+:root {
+  --bg:     #f5f3ef;
+  --text:   #1a1a1a;
+  --muted:  #888;
+  --border: #d8d5cf;
+  --nav-w:  200px;
+}
+
+/* ── Base ────────────────────────────────────── */
+html { font-size: 16px; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Layout shell ────────────────────────────── */
+.site-wrap {
+  display: grid;
+  grid-template-columns: var(--nav-w) 1fr;
+  min-height: 100vh;
+}
+
+/* ── Left nav ────────────────────────────────── */
+.nav-left {
+  padding: 2.5rem 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+.artist-name a { transition: opacity 0.2s; }
+.artist-name a:hover { opacity: 0.55; }
+
+.nav-label-paintings {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  letter-spacing: 0.04em;
+}
+
+.nav-periods {
+  list-style: none;
+  margin-top: 1.6rem;
+}
+.nav-periods li + li { margin-top: 0.5rem; }
+.nav-periods a {
+  font-size: 0.73rem;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  transition: opacity 0.2s;
+}
+.nav-periods a:hover,
+.nav-periods a.active { opacity: 0.4; }
+
+.nav-secondary {
+  list-style: none;
+  margin-top: 2.4rem;
+}
+.nav-secondary li + li { margin-top: 0.5rem; }
+.nav-secondary a {
+  font-size: 0.73rem;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  transition: opacity 0.2s;
+}
+.nav-secondary a:hover,
+.nav-secondary a.active { opacity: 0.4; }
+
+.nav-instagram {
+  margin-top: 2.4rem;
+}
+.nav-instagram a {
+  display: inline-flex;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+.nav-instagram a:hover { opacity: 1; }
+.nav-instagram svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--text);
+}
+
+/* ── Main content area ───────────────────────── */
+.site-main {
+  padding: 2.5rem 3rem 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Hamburger (mobile) ──────────────────────── */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 200;
+}
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--text);
+  margin: 5px 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Mobile overlay nav ──────────────────────── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+}
+.mobile-nav .close-btn { display: none; }
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 760px) {
+  .site-wrap {
+    grid-template-columns: 1fr;
+  }
+  .nav-left { display: none; }
+  .menu-toggle { display: block; }
+  .site-main {
+    grid-column: 1;
+    padding: 2rem 1rem 4rem;
+  }
+}

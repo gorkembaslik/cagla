@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paintings — Çağla Öztürk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #f5f3ef;
+      --text:   #1a1a1a;
+      --muted:  #888;
+      --border: #d8d5cf;
+      --nav-w:  200px;
+    }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Layout ──────────────────────────────── */
+    .site-wrap {
+      display: grid;
+      grid-template-columns: var(--nav-w) 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Left nav ────────────────────────────── */
+    .nav-left {
+      padding: 2.5rem 1.5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .artist-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+    .artist-name a { transition: opacity 0.2s; }
+    .artist-name a:hover { opacity: 0.55; }
+
+    .nav-label-paintings {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-periods {
+      list-style: none;
+      margin-top: 1.6rem;
+    }
+    .nav-periods li + li { margin-top: 0.5rem; }
+    .nav-periods a {
+      font-size: 0.73rem;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .nav-periods a:hover,
+    .nav-periods a.active { opacity: 0.4; }
+
+    .nav-secondary {
+      list-style: none;
+      margin-top: 2.4rem;
+    }
+    .nav-secondary li + li { margin-top: 0.5rem; }
+    .nav-secondary a {
+      font-size: 0.73rem;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .nav-secondary a:hover { opacity: 0.4; }
+
+    .nav-instagram {
+      margin-top: 2.4rem;
+    }
+    .nav-instagram a {
+      display: inline-flex;
+      opacity: 0.45;
+      transition: opacity 0.2s;
+    }
+    .nav-instagram a:hover { opacity: 1; }
+    .nav-instagram svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text);
+    }
+
+    /* ── Main ────────────────────────────────── */
+    .site-main {
+      padding: 2.5rem 3rem 4rem 2rem;
+    }
+
+    /* ── Grid view ───────────────────────────── */
+    .grid-view {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .grid-item {
+      cursor: pointer;
+      overflow: hidden;
+      background: #e8e5df;
+    }
+    .grid-item img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s, transform 0.4s;
+    }
+    .grid-item:hover img {
+      opacity: 0.82;
+      transform: scale(1.02);
+    }
+
+    /* ── Single view ─────────────────────────── */
+    .single-view {
+      position: relative;
+      min-height: calc(100vh - 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 2.5rem 3rem;
+    }
+
+    .image-row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      max-width: 100%;
+    }
+
+    .single-image {
+      max-height: 76vh;
+      max-width: calc(100% - 8rem);
+      object-fit: contain;
+      display: block;
+    }
+
+    .slide-nav {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      opacity: 0.3;
+      transition: opacity 0.2s;
+      padding: 0.5rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .slide-nav:hover { opacity: 0.9; }
+
+    .painting-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    .painting-caption .p-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+    }
+    .painting-caption .p-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      letter-spacing: 0.05em;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: lowercase;
+      color: var(--muted);
+      transition: color 0.2s;
+      padding: 0;
+    }
+    .back-btn:hover { color: var(--text); }
+
+    /* ── Mobile hamburger ────────────────────── */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 200;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--text);
+      margin: 5px 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .menu-toggle.is-open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .menu-toggle.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.is-open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    /* ── Mobile overlay nav ──────────────────── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 100;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Responsive ──────────────────────────── */
+    @media (max-width: 760px) {
+      .site-wrap {
+        grid-template-columns: 1fr;
+      }
+      .nav-left { display: none; }
+      .menu-toggle { display: block; }
+      .site-main { padding: 2rem 1rem 4rem; }
+
+      .grid-view { gap: 0.6rem; }
+
+      .single-view { padding: 2rem 0.5rem; min-height: calc(100vh - 4rem); }
+      .image-row { gap: 0.4rem; }
+      .single-image { max-width: calc(100% - 3rem); max-height: 72vh; }
+
+      .slide-nav .nav-text { display: none; }
+      .slide-nav { font-size: 1rem; opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+  <span></span><span></span><span></span>
+</button>
+<nav id="mobileNav" class="mobile-nav">
+  <a href="paintings.html">Paintings</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="site-wrap">
+
+  <nav class="nav-left">
+    <div class="artist-name"><a href="index.html">Çağla Öztürk</a></div>
+    <div class="nav-label-paintings">paintings</div>
+
+    <ul class="nav-periods" id="periodNav">
+      <li><a href="#" class="active" data-period="2024" onclick="selectPeriod('2024', this); return false;">2024 – 2025</a></li>
+      <li><a href="#" data-period="2022-2023" onclick="selectPeriod('2022-2023', this); return false;">2022 – 2023</a></li>
+    </ul>
+
+    <ul class="nav-secondary">
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+    </ul>
+
+    <div class="nav-instagram">
+      <a href="https://www.instagram.com/caglaozturkk3/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <main class="site-main" id="siteMain"></main>
+
+</div>
+
+<script>
+  // Update sizes with actual dimensions when known
+  const ALL_PAINTINGS = [
+    { src: 'images/cagla_buyuk_Dalga-2024.jpg',       title: 'Büyük Dalga',            size: 'dimensions variable', material: 'mixed media installation', year: '2024', period: '2024' },
+    { src: 'images/cagla_Resim_buyuk-Dalga-2024.jpg', title: 'Büyük Dalga (detail)',    size: 'dimensions variable', material: 'mixed media installation', year: '2024', period: '2024' },
+    { src: 'images/1_dalga_2023.webp',                title: 'Dalga I',                size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2023', period: '2022-2023' },
+    { src: 'images/2_dalga_2023.webp',                title: 'Dalga II',               size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2023', period: '2022-2023' },
+    { src: 'images/3_dalga_2023.webp',                title: 'Dalga III',              size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2023', period: '2022-2023' },
+    { src: 'images/4_dalga_2023.webp',                title: 'Dalga IV',               size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2023', period: '2022-2023' },
+    { src: 'images/5_dalga_2023.webp',                title: 'Dalga V',                size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2023', period: '2022-2023' },
+    { src: 'images/6_dalga_2023.webp',                title: 'Dalga VI',               size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2023', period: '2022-2023' },
+    { src: 'images/agarmis_mercanlar_2023.webp',      title: 'Ağarmış Mercanlar',      size: '60 × 80 cm',          material: 'oil on canvas',            year: '2023', period: '2022-2023' },
+    { src: 'images/aycicekleri_2022.webp',            title: 'Ayçiçekleri',            size: '40 × 50 cm',          material: 'watercolor on paper',      year: '2022', period: '2022-2023' },
+    { src: 'images/tarla_2022.webp',                  title: 'Tarla',                  size: '40 × 50 cm',          material: 'watercolor on paper',      year: '2022', period: '2022-2023' },
+    { src: 'images/1_geliboluya_giderken_2022.webp',  title: 'Geliboluya Giderken I',  size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2022', period: '2022-2023' },
+    { src: 'images/2_geliboluya_giderken_2022.webp',  title: 'Geliboluya Giderken II', size: '30 × 40 cm',          material: 'watercolor on paper',      year: '2022', period: '2022-2023' },
+  ];
+
+  let currentPeriod = '2024';
+  let currentIndex = 0;
+  let mode = 'grid';
+  let periodPaintings = [];
+
+  function selectPeriod(period, el) {
+    document.querySelectorAll('.nav-periods a').forEach(a => a.classList.remove('active'));
+    el.classList.add('active');
+    currentPeriod = period;
+    currentIndex = 0;
+    periodPaintings = ALL_PAINTINGS.filter(p => p.period === period);
+    renderGrid();
+  }
+
+  function renderGrid() {
+    mode = 'grid';
+    const main = document.getElementById('siteMain');
+    main.innerHTML = '';
+
+    const grid = document.createElement('div');
+    grid.className = 'grid-view';
+
+    periodPaintings.forEach((p, i) => {
+      const item = document.createElement('div');
+      item.className = 'grid-item';
+      item.onclick = () => openSingle(i);
+
+      const img = document.createElement('img');
+      img.src = p.src;
+      img.alt = p.title;
+      img.loading = 'lazy';
+
+      item.appendChild(img);
+      grid.appendChild(item);
+    });
+
+    main.appendChild(grid);
+  }
+
+  function openSingle(index) {
+    mode = 'single';
+    currentIndex = index;
+    renderSingle();
+  }
+
+  function renderSingle() {
+    const p = periodPaintings[currentIndex];
+    const main = document.getElementById('siteMain');
+    main.innerHTML = '';
+
+    const wrap = document.createElement('div');
+    wrap.className = 'single-view';
+
+    const backBtn = document.createElement('button');
+    backBtn.className = 'back-btn';
+    backBtn.textContent = '← show thumbnails';
+    backBtn.onclick = renderGrid;
+
+    const imageRow = document.createElement('div');
+    imageRow.className = 'image-row';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'slide-nav';
+    prevBtn.innerHTML = '←<span class="nav-text"> prev</span>';
+    prevBtn.onclick = () => { currentIndex = (currentIndex - 1 + periodPaintings.length) % periodPaintings.length; renderSingle(); };
+
+    const img = document.createElement('img');
+    img.className = 'single-image';
+    img.src = p.src;
+    img.alt = p.title;
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'slide-nav';
+    nextBtn.innerHTML = '<span class="nav-text">next </span>→';
+    nextBtn.onclick = () => { currentIndex = (currentIndex + 1) % periodPaintings.length; renderSingle(); };
+
+    imageRow.appendChild(prevBtn);
+    imageRow.appendChild(img);
+    imageRow.appendChild(nextBtn);
+
+    const caption = document.createElement('div');
+    caption.className = 'painting-caption';
+    caption.innerHTML = `<div class="p-title">${p.title}</div><div class="p-meta">${p.size} &nbsp;·&nbsp; ${p.material} &nbsp;·&nbsp; ${p.year}</div>`;
+
+    wrap.appendChild(backBtn);
+    wrap.appendChild(imageRow);
+    wrap.appendChild(caption);
+    main.appendChild(wrap);
+  }
+
+  // Mobile nav toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav  = document.getElementById('mobileNav');
+
+  menuToggle.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('is-open', open);
+  });
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (mode !== 'single') return;
+    if (e.key === 'ArrowLeft')  { currentIndex = (currentIndex - 1 + periodPaintings.length) % periodPaintings.length; renderSingle(); }
+    if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % periodPaintings.length; renderSingle(); }
+    if (e.key === 'Escape')     renderGrid();
+  });
+
+  // Init: show latest period
+  periodPaintings = ALL_PAINTINGS.filter(p => p.period === '2024');
+  renderGrid();
+</script>
+</body>
+</html>
