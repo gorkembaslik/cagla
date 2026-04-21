@@ -19,6 +19,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 1.2rem;
       width: 100%;
+      align-items: start;
     }
 
     .grid-item {
@@ -28,8 +29,7 @@
     }
     .grid-item img {
       width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: opacity 0.3s, transform 0.4s;
     }
@@ -123,17 +123,10 @@
         gap: 0.7rem;
       }
 
-      .single-view {
-        padding: 2rem 0.5rem 3rem;
-        min-height: calc(100vh - 6rem);
-      }
-      .image-row { gap: 0.3rem; }
-      .single-image {
-        max-width: calc(100% - 2.5rem);
-        max-height: 68vh;
-      }
-      .slide-nav .nav-text { display: none; }
-      .slide-nav { font-size: 1rem; opacity: 0.4; }
+      .single-view { padding: 2rem 0.5rem 3rem; min-height: calc(100vh - 6rem); }
+      .image-row { gap: 0; }
+      .single-image { max-width: 100%; max-height: 74vh; cursor: pointer; }
+      .slide-nav { display: none; }
     }
   </style>
 </head>
@@ -276,6 +269,16 @@
     img.className = 'single-image';
     img.src = p.src;
     img.alt = p.title;
+    img.addEventListener('click', e => {
+      const half = img.getBoundingClientRect().width / 2;
+      const clickX = e.clientX - img.getBoundingClientRect().left;
+      if (clickX < half) {
+        currentIndex = (currentIndex - 1 + periodPaintings.length) % periodPaintings.length;
+      } else {
+        currentIndex = (currentIndex + 1) % periodPaintings.length;
+      }
+      renderSingle();
+    });
 
     const nextBtn = document.createElement('button');
     nextBtn.className = 'slide-nav';
